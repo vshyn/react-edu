@@ -1,7 +1,7 @@
 import React from 'react';
 import './Card.css';
 
-const card = (props) => {
+const Index = (props) => {
     return (
         <div className="card">
           <h2>{props.title}</h2><hr/>
@@ -10,4 +10,4 @@ const card = (props) => {
     )
 }
 
-export default card;
+export default Index;

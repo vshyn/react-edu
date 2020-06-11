@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './Header/Header'
-import Card from './Card/Card'
+import Header from './Header';
+import Card from './Card';
 
 class App extends Component {
-  state = {
-    persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephaie', age: 26}
-    ]
-  }
-
   render() {
     return (
       <div className="App">
