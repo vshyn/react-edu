@@ -1,6 +1,19 @@
 .card {
     padding: 5px;
     width: 30%;
-    color: green;
-    border: solid thick green;
-  }
+    border: solid thick;
+}
+
+.container {
+    overflow: hidden
+}
+
+.title {
+    float: left;
+}
+
+.checkbox {
+    float: right;
+    width: 30px;
+    height: 30px;
+}
