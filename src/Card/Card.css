@@ -5,15 +5,12 @@
 }
 
 .container {
-    overflow: hidden
-}
-
-.title {
-    float: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .checkbox {
-    float: right;
-    width: 30px;
-    height: 30px;
+    transform: scale(2);
+    margin-right: 0.6rem;
 }

@@ -13,7 +13,7 @@ const Card = (props) => {
     return (
         <div className="card" style={{"color": styleState.checked ? "red" : "green"}}>
             <div className="container">
-                <h2 className="title">{props.title}</h2>
+                <h2>{props.title}</h2>
                 <input className="checkbox" type="checkbox" onChange={changeStyle}/>
             </div>
             <hr/>
