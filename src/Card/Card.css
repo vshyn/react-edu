@@ -1,6 +1,16 @@
 .card {
     padding: 5px;
     width: 30%;
-    color: green;
-    border: solid thick green;
-  }
+    border: solid thick;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox {
+    transform: scale(2);
+    margin-right: 0.6rem;
+}
