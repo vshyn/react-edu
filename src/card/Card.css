@@ -1,6 +1,6 @@
 .card {
     padding: 5px;
-    width: 30%;
+    width: fit-content;
     border: solid thick;
 }
 
