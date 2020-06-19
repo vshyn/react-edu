@@ -64,8 +64,7 @@ export class Card extends React.Component {
                 <div className="card" style={{ color: isChecked ? 'red' : 'green' }}>
                     <div className="container">
                         {isEditMode ? (
-                            <input
-                                type="text"
+                            <textarea
                                 value={title}
                                 onChange={this.changeTitleHandle}
                             />
@@ -100,11 +99,7 @@ export class Card extends React.Component {
                     </div>
                     <hr />
                     {isEditMode ? (
-                        <input
-                            type="text"
-                            value={info}
-                            onChange={this.changeInfoHandle}
-                        />
+                        <textarea value={info} onChange={this.changeInfoHandle} />
                     ) : (
                         <p>{info}</p>
                     )}
