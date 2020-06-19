@@ -1,6 +1,6 @@
 .card {
     padding: 5px;
-    width: 30%;
+    width: fit-content;
     border: solid thick;
 }
 
@@ -13,4 +13,9 @@
 .checkbox {
     transform: scale(2);
     margin-right: 0.6rem;
+    margin-left: 0.6rem;
+}
+
+textarea {
+    font-size: 20px;
 }
