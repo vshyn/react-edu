@@ -25,12 +25,11 @@ class App extends Component {
 
     saveHandler = (title, info, id) => {
         const { cards } = this.state;
-        const card = cards.find((el) => el.id === id);
-        card.title = title;
-        card.info = info;
-
-        cards[card.id] = card;
-        this.setState({ cards });
+        this.setState({
+            cards: cards.map((card) =>
+                card.id === id ? { title, info, id } : card
+            ),
+        });
     };
 
     onChangeMode = () => {
@@ -52,7 +51,7 @@ class App extends Component {
                     Read only
                 </label>
 
-                <div>
+                <div className="cardWrapper">
                     {cards.map((card) => (
                         <Card
                             title={card.title}
