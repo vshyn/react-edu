@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './header';
 import Card from './card';
+import Checkbox from './checkbox';
 
 class App extends Component {
     constructor(props) {
@@ -43,14 +44,9 @@ class App extends Component {
             <div>
                 <Header title="Header" />
                 <label>
-                    <input
-                        style={{ margin: '1rem', transform: 'scale(2)' }}
-                        type="checkbox"
-                        onChange={this.onChangeMode}
-                    />
+                    <Checkbox checked={readOnly} onChange={this.onChangeMode} />
                     Read only
                 </label>
-
                 <div className="cardWrapper">
                     {cards.map((card) => (
                         <Card
