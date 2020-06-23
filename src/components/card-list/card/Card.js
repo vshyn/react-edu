@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Card.css';
-import { MdEdit, MdSave, MdUndo } from 'react-icons/md';
+import styles from './Card.module.css';
+import CardHeader from './card-header/CardHeader';
+import CardBody from './card-body/CardBody';
 
 export class Card extends React.Component {
     constructor(props) {
@@ -62,52 +63,43 @@ export class Card extends React.Component {
         }
     };
 
+    saveHandler = () => {
+        const { isEditMode } = this.state;
+        this.setState({
+            isEditMode: !isEditMode,
+            tempTitle: '',
+            tempInfo: '',
+        });
+        this.props.onSave(this.state.title, this.state.info);
+    };
+
     render() {
         const { isChecked, isEditMode, title, info } = this.state;
-        const { onSave, readOnly } = this.props;
-
-        let caption = <h2>{title}</h2>;
-        let text = <p>{info}</p>;
-        if (isEditMode && !readOnly) {
-            text = <textarea value={info} onChange={this.changeInfoHandle} />;
-            caption = <textarea value={title} onChange={this.changeTitleHandle} />;
-        }
+        const { readOnly } = this.props;
 
         return (
             <div>
-                <div className="card" style={{ color: isChecked ? 'red' : 'green' }}>
-                    <div className="container">
-                        {caption}
-                        {isEditMode && !readOnly ? (
-                            <div>
-                                <MdUndo size={25} onClick={this.undoHandler} />
-                                <MdSave
-                                    size={25}
-                                    onClick={() => {
-                                        this.setState({
-                                            isEditMode: !isEditMode,
-                                            tempTitle: '',
-                                            tempInfo: '',
-                                        });
-                                        onSave(title, info);
-                                    }}
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                {readOnly ? null : (
-                                    <MdEdit size={25} onClick={this.editHandler} />
-                                )}
-                                <input
-                                    className="checkbox"
-                                    type="checkbox"
-                                    onChange={this.changeStyleHandler}
-                                />
-                            </div>
-                        )}
-                    </div>
+                <div
+                    className={styles.card}
+                    style={{ color: isChecked ? 'red' : 'green' }}
+                >
+                    <CardHeader
+                        title={title}
+                        readOnly={readOnly}
+                        isEditMode={isEditMode}
+                        changeStyle={this.changeStyleHandler}
+                        changed={this.changeTitleHandle}
+                        edit={this.editHandler}
+                        undo={this.undoHandler}
+                        save={this.saveHandler}
+                    />
                     <hr />
-                    {text}
+                    <CardBody
+                        info={info}
+                        readOnly={readOnly}
+                        isEditMode={isEditMode}
+                        changed={this.changeInfoHandle}
+                    />
                 </div>
             </div>
         );

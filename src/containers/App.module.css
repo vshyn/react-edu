@@ -1,0 +1,36 @@
+.cardWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+.cardWrapper .card {
+    margin-top: 1rem;
+}
+
+.block{
+    overflow: auto;
+    margin: 2rem;
+}
+
+.label{
+    width: 70%;
+    float: left;
+}
+
+.button{
+    background-color: salmon;
+    border: none;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.2rem;
+    width: 30%;
+    float: right;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: red;
+}

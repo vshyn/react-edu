@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import Header from './header';
-import Card from './card';
-import Checkbox from './checkbox';
+import styles from './App.module.css';
+import Header from '../components/header';
+import Checkbox from '../components/checkbox';
+import CardList from '../components/card-list/CardList';
 
 class App extends Component {
     constructor(props) {
@@ -38,25 +38,34 @@ class App extends Component {
         this.setState({ readOnly: !readOnly });
     };
 
+    deleteCards = () => {
+        console.log('deleteCards');
+    };
+
     render() {
         const { cards, readOnly } = this.state;
         return (
             <div>
                 <Header title="Header" />
-                <label>
-                    <Checkbox checked={readOnly} onChange={this.onChangeMode} />
-                    Read only
-                </label>
-                <div className="cardWrapper">
-                    {cards.map((card) => (
-                        <Card
-                            title={card.title}
-                            info={card.info}
-                            readOnly={readOnly}
-                            key={card.id}
-                            onSave={(e1, e2) => this.saveHandler(e1, e2, card.id)}
-                        />
-                    ))}
+                <div className={styles.block}>
+                    <label className={styles.label}>
+                        <Checkbox checked={readOnly} onChange={this.onChangeMode} />
+                        Read only
+                    </label>
+                    <button
+                        type="button"
+                        onClick={this.deleteCards}
+                        className={styles.button}
+                    >
+                        Delete selected
+                    </button>
+                </div>
+                <div className={styles.cardWrapper}>
+                    <CardList
+                        cards={cards}
+                        readOnly={readOnly}
+                        clicked={this.saveHandler}
+                    />
                 </div>
             </div>
         );
