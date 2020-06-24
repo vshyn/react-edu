@@ -9,16 +9,16 @@ class App extends Component {
         super(props);
         this.state = {
             cards: [
-                { id: 0, title: 'Caption 0', info: 'additional text 0' },
-                { id: 1, title: 'Caption 1', info: 'additional text 1' },
-                { id: 2, title: 'Caption 2', info: 'additional text 2' },
-                { id: 3, title: 'Caption 3', info: 'additional text 3' },
-                { id: 4, title: 'Caption 4', info: 'additional text 4' },
-                { id: 5, title: 'Caption 5', info: 'additional text 5' },
-                { id: 6, title: 'Caption 6', info: 'additional text 6' },
-                { id: 7, title: 'Caption 7', info: 'additional text 7' },
-                { id: 8, title: 'Caption 8', info: 'additional text 8' },
-                { id: 9, title: 'Caption 9', info: 'additional text 9' },
+                { id: 0, title: 'Caption 0', info: 'text 0', tick: false },
+                { id: 1, title: 'Caption 1', info: 'text 1', tick: false },
+                { id: 2, title: 'Caption 2', info: 'text 2', tick: false },
+                { id: 3, title: 'Caption 3', info: 'text 3', tick: false },
+                { id: 4, title: 'Caption 4', info: 'text 4', tick: false },
+                { id: 5, title: 'Caption 5', info: 'text 5', tick: false },
+                { id: 6, title: 'Caption 6', info: 'text 6', tick: false },
+                { id: 7, title: 'Caption 7', info: 'text 7', tick: false },
+                { id: 8, title: 'Caption 8', info: 'text 8', tick: false },
+                { id: 9, title: 'Caption 9', info: 'text 9', tick: false },
             ],
             readOnly: false,
         };
@@ -28,7 +28,7 @@ class App extends Component {
         const { cards } = this.state;
         this.setState({
             cards: cards.map((card) =>
-                card.id === id ? { title, info, id } : card
+                card.id === id ? { ...card, title, info, id } : card
             ),
         });
     };
@@ -39,7 +39,18 @@ class App extends Component {
     };
 
     deleteCards = () => {
-        console.log('deleteCards');
+        const { cards } = this.state;
+        const newCards = cards.filter((card) => !card.tick);
+        this.setState({ cards: newCards });
+    };
+
+    changeTickedHandler = (id, tick = !this.state.cards[id].tick) => {
+        const { cards } = this.state;
+        this.setState({
+            cards: cards.map((card) =>
+                card.id === id ? { ...card, tick, id } : card
+            ),
+        });
     };
 
     render() {
@@ -65,6 +76,7 @@ class App extends Component {
                         cards={cards}
                         readOnly={readOnly}
                         clicked={this.saveHandler}
+                        ticked={this.changeTickedHandler}
                     />
                 </div>
             </div>

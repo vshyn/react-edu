@@ -7,9 +7,9 @@ import CardBody from './card-body/CardBody';
 export class Card extends React.Component {
     constructor(props) {
         super(props);
-        const { title, info } = this.props;
+        const { card } = this.props;
+        const { title, info } = card;
         this.state = {
-            isChecked: false,
             isEditMode: false,
             title,
             tempTitle: '',
@@ -22,23 +22,18 @@ export class Card extends React.Component {
         const { isEditMode } = this.state;
         this.setState({
             isEditMode: !isEditMode.isEditMode,
-            isChecked: false,
         });
+        this.props.onTicked(false);
     };
 
     undoHandler = () => {
         const { isEditMode, tempTitle, tempInfo } = this.state;
-        const { title, info } = this.props;
+        const { title, info } = this.props.card;
         this.setState({
             isEditMode: !isEditMode,
             title: tempTitle || title,
             info: tempInfo || info,
         });
-    };
-
-    changeStyleHandler = () => {
-        const { isChecked } = this.state;
-        this.setState({ isChecked: !isChecked });
     };
 
     changeTitleHandle = (event) => {
@@ -74,20 +69,20 @@ export class Card extends React.Component {
     };
 
     render() {
-        const { isChecked, isEditMode, title, info } = this.state;
-        const { readOnly } = this.props;
-
+        const { isEditMode, title, info } = this.state;
+        const { readOnly, card, onTicked } = this.props;
+        const { tick } = card;
         return (
             <div>
                 <div
                     className={styles.card}
-                    style={{ color: isChecked ? 'red' : 'green' }}
+                    style={{ color: tick ? 'red' : 'green' }}
                 >
                     <CardHeader
                         title={title}
                         readOnly={readOnly}
                         isEditMode={isEditMode}
-                        changeStyle={this.changeStyleHandler}
+                        ticked={onTicked}
                         changed={this.changeTitleHandle}
                         edit={this.editHandler}
                         undo={this.undoHandler}
@@ -109,8 +104,11 @@ export class Card extends React.Component {
 Card.propTypes = {
     title: PropTypes.string,
     info: PropTypes.string,
+    card: PropTypes.object,
     onSave: PropTypes.func,
     readOnly: PropTypes.bool,
+    onTicked: PropTypes.func,
+    tick: PropTypes.bool,
 };
 
 export default Card;

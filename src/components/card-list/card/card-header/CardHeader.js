@@ -8,7 +8,7 @@ const cardHeader = ({
     isEditMode,
     readOnly,
     changed,
-    changeStyle,
+    ticked,
     undo,
     save,
     edit,
@@ -18,11 +18,7 @@ const cardHeader = ({
     let buttons = (
         <div>
             {editBtn}
-            <input
-                className={styles.checkbox}
-                type="checkbox"
-                onChange={changeStyle}
-            />
+            <input className={styles.checkbox} type="checkbox" onChange={ticked} />
         </div>
     );
     if (isEditMode && !readOnly) {
@@ -47,7 +43,7 @@ cardHeader.propTypes = {
     title: PropTypes.string,
     readOnly: PropTypes.bool,
     isEditMode: PropTypes.bool,
-    changeStyle: PropTypes.func,
+    ticked: PropTypes.func,
     changed: PropTypes.func,
     save: PropTypes.func,
     undo: PropTypes.func,
