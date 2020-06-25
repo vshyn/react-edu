@@ -1,15 +1,15 @@
 import React from 'react';
-import './Header.css';
 import PropTypes from 'prop-types';
+import styles from './Header.module.css';
 
-const Header = ({ title }) => (
-    <div className="header">
+const header = ({ title }) => (
+    <div className={styles.header}>
         <h1>{title}</h1>
     </div>
 );
 
-Header.propTypes = {
-    title: PropTypes.string,
+header.propTypes = {
+    title: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default header;

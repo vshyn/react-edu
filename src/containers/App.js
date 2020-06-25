@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './App.module.css';
 import Header from '../components/header';
 import Checkbox from '../components/checkbox';
-import CardList from '../components/card-list/CardList';
+import CardList from '../components/card-list';
 
 class App extends Component {
     constructor(props) {
@@ -44,11 +44,8 @@ class App extends Component {
         this.setState({ cards: newCards });
     };
 
-    changeTickedHandler = (id, tick) => {
-        let newTick = tick;
-        if (typeof newTick !== 'boolean') {
-            newTick = !this.state.cards[id].tick;
-        }
+    changeTickedHandler = (id, tick, isEdit) => {
+        const newTick = !isEdit ? isEdit : tick;
         const { cards } = this.state;
         this.setState({
             cards: cards.map((card) =>
@@ -75,14 +72,12 @@ class App extends Component {
                         Delete selected
                     </button>
                 </div>
-                <div className={styles.cardWrapper}>
-                    <CardList
-                        cards={cards}
-                        readOnly={readOnly}
-                        clicked={this.saveHandler}
-                        ticked={this.changeTickedHandler}
-                    />
-                </div>
+                <CardList
+                    cards={cards}
+                    readOnly={readOnly}
+                    onCardSaved={this.saveHandler}
+                    onCardTicked={this.changeTickedHandler}
+                />
             </div>
         );
     }

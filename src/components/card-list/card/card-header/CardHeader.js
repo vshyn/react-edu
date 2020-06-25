@@ -7,26 +7,25 @@ const cardHeader = ({
     title,
     isEditMode,
     readOnly,
-    changed,
-    ticked,
-    undo,
-    save,
-    edit,
+    onChanged,
+    onTicked,
+    onUndo,
+    onSave,
+    onEdit,
 }) => {
-    const editBtn = !readOnly ? <MdEdit size={25} onClick={edit} /> : null;
     let caption = <h2>{title}</h2>;
     let buttons = (
         <div>
-            {editBtn}
-            <input className={styles.checkbox} type="checkbox" onChange={ticked} />
+            {!readOnly && <MdEdit size={25} onClick={onEdit} />}
+            <input className={styles.checkbox} type="checkbox" onClick={onTicked} />
         </div>
     );
     if (isEditMode && !readOnly) {
-        caption = <textarea value={title} onChange={changed} />;
+        caption = <textarea value={title} onChange={onChanged} />;
         buttons = (
             <div>
-                <MdUndo size={25} onClick={undo} />
-                <MdSave size={25} onClick={save} />
+                <MdUndo size={25} onClick={onUndo} />
+                <MdSave size={25} onClick={onSave} />
             </div>
         );
     }
@@ -40,14 +39,14 @@ const cardHeader = ({
 };
 
 cardHeader.propTypes = {
-    title: PropTypes.string,
-    readOnly: PropTypes.bool,
-    isEditMode: PropTypes.bool,
-    ticked: PropTypes.func,
-    changed: PropTypes.func,
-    save: PropTypes.func,
-    undo: PropTypes.func,
-    edit: PropTypes.func,
+    title: PropTypes.string.isRequired,
+    readOnly: PropTypes.bool.isRequired,
+    isEditMode: PropTypes.bool.isRequired,
+    onTicked: PropTypes.func.isRequired,
+    onChanged: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onUndo: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
 };
 
 export default cardHeader;

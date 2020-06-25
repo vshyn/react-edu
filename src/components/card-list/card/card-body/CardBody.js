@@ -12,10 +12,10 @@ const cardBody = ({ isEditMode, readOnly, info, changed }) => (
 );
 
 cardBody.propTypes = {
-    info: PropTypes.string,
-    readOnly: PropTypes.bool,
-    isEditMode: PropTypes.bool,
-    changed: PropTypes.func,
+    info: PropTypes.string.isRequired,
+    readOnly: PropTypes.bool.isRequired,
+    isEditMode: PropTypes.bool.isRequired,
+    changed: PropTypes.func.isRequired,
 };
 
 export default cardBody;

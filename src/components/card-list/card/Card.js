@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.css';
-import CardHeader from './card-header/CardHeader';
-import CardBody from './card-body/CardBody';
+import CardHeader from './card-header';
+import CardBody from './card-body';
 
-export class Card extends React.Component {
+class Card extends React.Component {
     constructor(props) {
         super(props);
         const { card } = this.props;
@@ -82,11 +82,11 @@ export class Card extends React.Component {
                         title={title}
                         readOnly={readOnly}
                         isEditMode={isEditMode}
-                        ticked={onTicked}
-                        changed={this.changeTitleHandle}
-                        edit={this.editHandler}
-                        undo={this.undoHandler}
-                        save={this.saveHandler}
+                        onTicked={onTicked}
+                        onChanged={this.changeTitleHandle}
+                        onEdit={this.editHandler}
+                        onUndo={this.undoHandler}
+                        onSave={this.saveHandler}
                     />
                     <hr />
                     <CardBody
@@ -102,13 +102,10 @@ export class Card extends React.Component {
 }
 
 Card.propTypes = {
-    title: PropTypes.string,
-    info: PropTypes.string,
-    card: PropTypes.object,
-    onSave: PropTypes.func,
-    readOnly: PropTypes.bool,
-    onTicked: PropTypes.func,
-    tick: PropTypes.bool,
+    card: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool.isRequired,
+    onTicked: PropTypes.func.isRequired,
 };
 
 export default Card;
