@@ -44,11 +44,15 @@ class App extends Component {
         this.setState({ cards: newCards });
     };
 
-    changeTickedHandler = (id, tick = !this.state.cards[id].tick) => {
+    changeTickedHandler = (id, tick) => {
+        let newTick = tick;
+        if (typeof newTick !== 'boolean') {
+            newTick = !this.state.cards[id].tick;
+        }
         const { cards } = this.state;
         this.setState({
             cards: cards.map((card) =>
-                card.id === id ? { ...card, tick, id } : card
+                card.id === id ? { ...card, tick: newTick, id } : card
             ),
         });
     };
