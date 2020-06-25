@@ -4,22 +4,37 @@
 }
 
 .label{
-    width: 70%;
+    width: 60%;
     float: left;
 }
 
-.button{
-    background-color: salmon;
+.buttons{
+    width: 40%;
+    float: right;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.btn{
     border: none;
     color: white;
     padding: 1rem;
     text-align: center;
-    display: inline-block;
     font-size: 1.2rem;
-    width: 30%;
-    float: right;
     cursor: pointer;
 }
-.button:hover {
+
+.btnDelete{
+    background-color: salmon;
+}
+.btnDelete:hover {
     background-color: red;
+}
+
+.btnCreate{
+    background-color: lightgreen;
+}
+.btnCreate:hover {
+    background-color: green;
 }
