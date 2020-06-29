@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Card.module.css';
 import CardHeader from './card-header';
 import CardBody from './card-body';
+import withLoadingDelay from '../../../hoc/WithLoadingDelay';
 
 class Card extends React.Component {
     constructor(props) {
@@ -108,4 +109,4 @@ Card.propTypes = {
     onTicked: PropTypes.func.isRequired,
 };
 
-export default Card;
+export default withLoadingDelay(Card);
