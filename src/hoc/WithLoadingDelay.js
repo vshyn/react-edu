@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const withLoadingDelay = (WrappedComponent) => (props) => {
     const [isLoading, setLoading] = useState(true);
 
-    setTimeout(() => setLoading(false), 2000);
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 2000);
+    }, []);
 
     return isLoading ? (
         <ClipLoader loading={isLoading} />
