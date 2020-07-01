@@ -1,27 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Card from './card';
 import styles from './CardList.module.css';
+import CardsContext from '../../context/cards-context';
 
-const cardList = ({ cards, readOnly, onCardSaved, onCardTicked }) => (
-    <div className={styles.cardWrapper}>
-        {cards.map((card) => (
-            <Card
-                card={card}
-                readOnly={readOnly}
-                key={card.id}
-                onSave={(e1, e2) => onCardSaved(e1, e2, card.id)}
-                onTicked={(isEdit) => onCardTicked(card.id, !card.tick, isEdit)}
-            />
-        ))}
-    </div>
+const cardList = () => (
+    <CardsContext.Consumer>
+        {(context) => (
+            <div className={styles.cardWrapper}>
+                {context.cards.map((card) => (
+                    <Card
+                        card={card}
+                        key={card.id}
+                        readOnly={context.readOnly}
+                        onSave={(e1, e2) => context.saveHandler(e1, e2, card.id)}
+                        onTicked={(isEdit) =>
+                            context.changeTickedHandler(card.id, !card.tick, isEdit)
+                        }
+                    />
+                ))}
+            </div>
+        )}
+    </CardsContext.Consumer>
 );
-
-cardList.propTypes = {
-    cards: PropTypes.array.isRequired,
-    readOnly: PropTypes.bool.isRequired,
-    onCardSaved: PropTypes.func.isRequired,
-    onCardTicked: PropTypes.func.isRequired,
-};
 
 export default cardList;

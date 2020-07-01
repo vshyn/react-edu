@@ -71,7 +71,7 @@ class Card extends React.Component {
 
     render() {
         const { isEditMode, title, info } = this.state;
-        const { readOnly, card, onTicked } = this.props;
+        const { card, onTicked } = this.props;
         const { tick } = card;
         return (
             <div>
@@ -81,7 +81,6 @@ class Card extends React.Component {
                 >
                     <CardHeader
                         title={title}
-                        readOnly={readOnly}
                         isEditMode={isEditMode}
                         onTicked={onTicked}
                         onChanged={this.changeTitleHandle}
@@ -92,7 +91,6 @@ class Card extends React.Component {
                     <hr />
                     <CardBody
                         info={info}
-                        readOnly={readOnly}
                         isEditMode={isEditMode}
                         changed={this.changeInfoHandle}
                     />

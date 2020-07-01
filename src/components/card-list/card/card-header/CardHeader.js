@@ -2,45 +2,50 @@ import React from 'react';
 import { MdEdit, MdSave, MdUndo } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import styles from './CardHeader.module.css';
+import CardsContext from '../../../../context/cards-context';
 
 const cardHeader = ({
     title,
     isEditMode,
-    readOnly,
     onChanged,
     onTicked,
     onUndo,
     onSave,
     onEdit,
-}) => {
-    let caption = <h2>{title}</h2>;
-    let buttons = (
-        <div>
-            {!readOnly && <MdEdit size={25} onClick={onEdit} />}
-            <input className={styles.checkbox} type="checkbox" onClick={onTicked} />
-        </div>
-    );
-    if (isEditMode && !readOnly) {
-        caption = <textarea value={title} onChange={onChanged} />;
-        buttons = (
+}) => (
+    <CardsContext.Consumer>
+        {(context) => (
             <div>
-                <MdUndo size={25} onClick={onUndo} />
-                <MdSave size={25} onClick={onSave} />
+                {isEditMode && !context.readOnly ? (
+                    <div className={styles.container}>
+                        <textarea value={title} onChange={onChanged} />
+                        <div>
+                            <MdUndo size={25} onClick={onUndo} />
+                            <MdSave size={25} onClick={onSave} />
+                        </div>
+                    </div>
+                ) : (
+                    <div className={styles.container}>
+                        <h2>{title}</h2>
+                        <div>
+                            {!context.readOnly && (
+                                <MdEdit size={25} onClick={onEdit} />
+                            )}
+                            <input
+                                className={styles.checkbox}
+                                type="checkbox"
+                                onClick={onTicked}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
-        );
-    }
-
-    return (
-        <div className={styles.container}>
-            {caption}
-            {buttons}
-        </div>
-    );
-};
+        )}
+    </CardsContext.Consumer>
+);
 
 cardHeader.propTypes = {
     title: PropTypes.string.isRequired,
-    readOnly: PropTypes.bool.isRequired,
     isEditMode: PropTypes.bool.isRequired,
     onTicked: PropTypes.func.isRequired,
     onChanged: PropTypes.func.isRequired,

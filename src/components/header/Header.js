@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Badge } from 'reactstrap';
 import styles from './Header.module.css';
+import CardsContext from '../../context/cards-context';
 
 const header = ({ title }) => (
-    <div className={styles.header}>
-        <h1>{title}</h1>
-    </div>
+    <CardsContext.Consumer>
+        {(context) => (
+            <div className={styles.header}>
+                <h1>
+                    {title} <Badge color="info">{context.getCardsCount()}</Badge>
+                </h1>
+            </div>
+        )}
+    </CardsContext.Consumer>
 );
 
 header.propTypes = {

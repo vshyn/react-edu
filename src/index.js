@@ -1,12 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import { CardsContextProvider } from './context/cards-context';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <CardsContextProvider>
+            <App />
+        </CardsContextProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
