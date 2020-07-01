@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const CardsContext = React.createContext({
     cards: [],
@@ -17,20 +18,28 @@ export class CardsContextProvider extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cards: [
-                { id: uuidv4(), title: 'Caption 0', info: 'text 0', tick: false },
-                { id: uuidv4(), title: 'Caption 1', info: 'text 1', tick: false },
-                { id: uuidv4(), title: 'Caption 2', info: 'text 2', tick: false },
-                { id: uuidv4(), title: 'Caption 3', info: 'text 3', tick: false },
-                { id: uuidv4(), title: 'Caption 4', info: 'text 4', tick: false },
-                { id: uuidv4(), title: 'Caption 5', info: 'text 5', tick: false },
-                { id: uuidv4(), title: 'Caption 6', info: 'text 6', tick: false },
-                { id: uuidv4(), title: 'Caption 7', info: 'text 7', tick: false },
-                { id: uuidv4(), title: 'Caption 8', info: 'text 8', tick: false },
-                { id: uuidv4(), title: 'Caption 9', info: 'text 9', tick: false },
-            ],
             readOnly: false,
+            cards: [],
         };
+    }
+
+    componentDidMount() {
+        axios
+            .get(
+                'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json'
+            )
+            .then((response) => {
+                const cards = response.data.slice(0, 15).map((line) => ({
+                    id: uuidv4(),
+                    title: line.Name,
+                    info: line.About,
+                    tick: false,
+                }));
+                this.setState({ cards });
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     getCardsCount = () => this.state.cards.length;
