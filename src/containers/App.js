@@ -1,14 +1,12 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import styles from './App.module.css';
-import Header from '../components/header';
 import Checkbox from '../components/checkbox';
 import CardList from '../components/card-list';
 import CardsContext from '../context/cards-context';
 
 const App = () => (
     <div>
-        <Header title="Header" />
         <CardsContext.Consumer>
             {(context) => (
                 <div className={styles.block}>

@@ -8,11 +8,13 @@ import * as serviceWorker from './serviceWorker';
 import { CardsContextProvider } from './context/cards-context';
 import SignInPage from './pages/SignInPage';
 import ErrorPage from './pages/ErrorPage';
+import Header from './components/header';
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <CardsContextProvider>
+                <Header title="Header" />
                 <Switch>
                     <Route path="/" exact component={App} />
                     <Route path="/sign-in" exact component={SignInPage} />
