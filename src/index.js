@@ -2,15 +2,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { CardsContextProvider } from './context/cards-context';
+import SignInPage from './pages/SignInPage';
+import ErrorPage from './pages/ErrorPage';
+import Header from './components/header';
 
 ReactDOM.render(
     <React.StrictMode>
-        <CardsContextProvider>
-            <App />
-        </CardsContextProvider>
+        <BrowserRouter>
+            <CardsContextProvider>
+                <Header title="Header" />
+                <Switch>
+                    <Route path="/" exact component={App} />
+                    <Route path="/sign-in" exact component={SignInPage} />
+                    <Route component={ErrorPage} />
+                </Switch>
+            </CardsContextProvider>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );
