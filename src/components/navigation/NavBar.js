@@ -1,18 +1,34 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import { Navbar, Nav, NavItem } from 'reactstrap';
+import { withRouter, NavLink } from 'react-router-dom';
 
 const NavBar = () => (
     <Navbar expand="md">
         <Nav className="mr-auto" navbar>
+            |
             <NavItem>
-                <NavLink href="/sign-in">Sign in</NavLink>
+                <NavLink
+                    to="/sign-in"
+                    activeStyle={{
+                        color: 'darkblue',
+                    }}
+                >
+                    Sign in
+                </NavLink>
             </NavItem>
+            |
             <NavItem>
-                <NavLink href="/" exact="true">
+                <NavLink
+                    exact
+                    to="/"
+                    activeStyle={{
+                        color: 'darkblue',
+                    }}
+                >
                     Home
                 </NavLink>
             </NavItem>
+            |
         </Nav>
     </Navbar>
 );

@@ -2,30 +2,19 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {
+    composeValidators,
+    required,
+    isEmail,
+    minLength,
+    hasNumber,
+    hasLetter,
+} from '../validation/validations';
 
 class SignInPage extends React.Component {
     onSubmit = () => {
         this.props.history.push('/');
     };
-
-    required = (value) => (value ? undefined : 'Required');
-
-    isEmail = (value) => (/\S+@\S+\.\S+/.test(value) ? undefined : 'Must be email');
-
-    minLength = (value) =>
-        value.length > 8 ? undefined : 'Must be 8 symbols length';
-
-    hasNumber = (value) =>
-        /\d/.test(value) ? undefined : 'Must have minimum one number';
-
-    hasLetter = (value) =>
-        /[a-zA-Z]/.test(value) ? undefined : 'Must have minimum one letter';
-
-    composeValidators = (...validators) => (value) =>
-        validators.reduce(
-            (error, validator) => error || validator(value),
-            undefined
-        );
 
     checkDisable = (values) => values.hasValidationErrors;
 
@@ -38,10 +27,7 @@ class SignInPage extends React.Component {
                         <form onSubmit={handleSubmit}>
                             <Field
                                 name="username"
-                                validate={this.composeValidators(
-                                    this.required,
-                                    this.isEmail
-                                )}
+                                validate={composeValidators(required, isEmail)}
                             >
                                 {({ input, meta }) => (
                                     <div>
@@ -59,11 +45,11 @@ class SignInPage extends React.Component {
                             </Field>
                             <Field
                                 name="password"
-                                validate={this.composeValidators(
-                                    this.required,
-                                    this.minLength,
-                                    this.hasNumber,
-                                    this.hasLetter
+                                validate={composeValidators(
+                                    required,
+                                    minLength,
+                                    hasNumber,
+                                    hasLetter
                                 )}
                             >
                                 {({ input, meta }) => (
