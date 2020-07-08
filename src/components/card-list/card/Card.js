@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styles from './Card.module.css';
 import CardHeader from './card-header';
 import CardBody from './card-body';
@@ -8,10 +10,10 @@ import withLoadingDelay from '../../../hoc/WithLoadingDelay';
 class Card extends React.Component {
     constructor(props) {
         super(props);
-        const { card } = this.props;
+        const { card, match } = this.props;
         const { title, info } = card;
         this.state = {
-            isEditMode: false,
+            isEditMode: match.path === '/card/:id',
             title,
             tempTitle: '',
             info,
@@ -69,12 +71,18 @@ class Card extends React.Component {
         this.props.onSave(this.state.title, this.state.info);
     };
 
+    doubleClickHandler = (id) => {
+        if (!this.state.isEditMode) {
+            this.props.history.push(`card/${id}`);
+        }
+    };
+
     render() {
         const { isEditMode, title, info } = this.state;
         const { card, onTicked } = this.props;
         const { tick } = card;
         return (
-            <div>
+            <div onDoubleClick={() => this.doubleClickHandler(card.id)}>
                 <div
                     className={styles.card}
                     style={{ color: tick ? 'red' : 'green' }}
@@ -103,8 +111,14 @@ class Card extends React.Component {
 Card.propTypes = {
     card: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
-    readOnly: PropTypes.bool.isRequired,
+    readOnly: PropTypes.bool,
     onTicked: PropTypes.func.isRequired,
+    history: PropTypes.any,
+    match: PropTypes.any,
 };
 
-export default withLoadingDelay(Card);
+const mapStateToProps = (state) => ({
+    readOnly: state.readOnly,
+});
+
+export default connect(mapStateToProps)(withLoadingDelay(withRouter(Card)));
