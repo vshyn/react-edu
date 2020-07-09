@@ -26,7 +26,6 @@ cardList.propTypes = {
 
 const mapStateToProps = (state) => ({
     cards: state.cards,
-    readOnly: state.readOnly,
 });
 
 const mapDispatchToProps = {

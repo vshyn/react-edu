@@ -5,7 +5,10 @@ const withLoadingDelay = (WrappedComponent) => (props) => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => setLoading(false), 2000);
+        const timeOut = setTimeout(() => setLoading(false), 2000);
+        return () => {
+            clearTimeout(timeOut);
+        };
     }, []);
 
     return isLoading ? (

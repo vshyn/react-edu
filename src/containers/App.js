@@ -9,8 +9,10 @@ import { create, remove, changeMode, loadCards } from '../store/actions';
 
 class App extends Component {
     componentDidMount() {
-        const { onLoadCards } = this.props;
-        onLoadCards();
+        const { cards, onLoadCards } = this.props;
+        if (!cards || cards.length === 0) {
+            onLoadCards();
+        }
     }
 
     render() {
@@ -43,10 +45,12 @@ App.propTypes = {
     onChangeMode: PropTypes.func,
     onLoadCards: PropTypes.func,
     readOnly: PropTypes.bool,
+    cards: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = (state) => ({
     readOnly: state.readOnly,
+    cards: state.cards,
 });
 
 const mapDispatchToProps = {
