@@ -14,7 +14,12 @@ import Header from './components/header';
 import reducer from './store/reducer';
 import SingleCard from './pages/SingleCard';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const logger = () => (next) => (action) => {
+    console.log(action);
+    return next(action);
+};
+
+const store = createStore(reducer, applyMiddleware(logger, thunk));
 
 ReactDOM.render(
     <React.StrictMode>
