@@ -3,25 +3,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import { CardsContextProvider } from './context/cards-context';
 import SignInPage from './pages/SignInPage';
 import ErrorPage from './pages/ErrorPage';
 import Header from './components/header';
+import reducer from './store/reducer';
+import SingleCard from './pages/SingleCard';
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <CardsContextProvider>
+        <Provider store={store}>
+            <BrowserRouter>
                 <Header title="Header" />
                 <Switch>
                     <Route path="/" exact component={App} />
                     <Route path="/sign-in" exact component={SignInPage} />
+                    <Route path="/card/:id" exact component={SingleCard} />
                     <Route component={ErrorPage} />
                 </Switch>
-            </CardsContextProvider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

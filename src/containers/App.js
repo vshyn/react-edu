@@ -1,35 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styles from './App.module.css';
 import Checkbox from '../components/checkbox';
 import CardList from '../components/card-list';
-import CardsContext from '../context/cards-context';
+import { create, remove, changeMode, loadCards } from '../store/actions';
 
-const App = () => (
-    <div>
-        <CardsContext.Consumer>
-            {(context) => (
+class App extends Component {
+    componentDidMount() {
+        const { cards, onLoadCards } = this.props;
+        if (!cards || cards.length === 0) {
+            onLoadCards();
+        }
+    }
+
+    render() {
+        const { readOnly, onChangeMode, createCard, deleteCards } = this.props;
+        return (
+            <div>
                 <div className={styles.block}>
                     <label className={styles.label}>
-                        <Checkbox
-                            checked={context.readOnly}
-                            onChange={context.onChangeMode}
-                        />
+                        <Checkbox checked={readOnly} onChange={onChangeMode} />
                         Read only
                     </label>
                     <div className={styles.buttons}>
-                        <Button color="success" onClick={context.createCard}>
+                        <Button color="success" onClick={createCard}>
                             Create new card
                         </Button>
-                        <Button color="danger" onClick={context.deleteCards}>
+                        <Button color="danger" onClick={deleteCards}>
                             Delete selected
                         </Button>
                     </div>
                 </div>
-            )}
-        </CardsContext.Consumer>
-        <CardList />
-    </div>
-);
+                <CardList />
+            </div>
+        );
+    }
+}
 
-export default App;
+App.propTypes = {
+    createCard: PropTypes.func,
+    deleteCards: PropTypes.func,
+    onChangeMode: PropTypes.func,
+    onLoadCards: PropTypes.func,
+    readOnly: PropTypes.bool,
+    cards: PropTypes.arrayOf(PropTypes.object),
+};
+
+const mapStateToProps = (state) => ({
+    readOnly: state.readOnly,
+    cards: state.cards,
+});
+
+const mapDispatchToProps = {
+    createCard: create,
+    deleteCards: remove,
+    onChangeMode: changeMode,
+    onLoadCards: loadCards,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
