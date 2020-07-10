@@ -5,22 +5,24 @@ import { connect } from 'react-redux';
 import styles from './Header.module.css';
 import NavBar from '../navigation/NavBar';
 
-const header = ({ title, cards }) => (
+const header = ({ cards, authorized }) => (
     <div className={styles.header}>
         <NavBar />
         <h1>
-            {title} <Badge color="info">{cards.length}</Badge>
+            Number of cards{' '}
+            {authorized && <Badge color="info">{cards.length}</Badge>}
         </h1>
     </div>
 );
 
 header.propTypes = {
-    title: PropTypes.string.isRequired,
     cards: PropTypes.arrayOf(PropTypes.object),
+    authorized: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-    cards: state.cards,
+    cards: state.cardReducer.cards,
+    authorized: state.authReducer.authorized,
 });
 
 export default connect(mapStateToProps)(header);

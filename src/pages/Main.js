@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styles from './App.module.css';
-import Checkbox from '../components/checkbox';
+import styles from './Main.module.css';
 import CardList from '../components/card-list';
-import { create, remove, changeMode, loadCards } from '../store/actions';
+import { create, remove, loadCards } from '../store/actions';
 
-class App extends Component {
+class Main extends Component {
     componentDidMount() {
         const { cards, onLoadCards } = this.props;
         if (!cards || cards.length === 0) {
@@ -16,14 +15,10 @@ class App extends Component {
     }
 
     render() {
-        const { readOnly, onChangeMode, createCard, deleteCards } = this.props;
+        const { createCard, deleteCards, authorized } = this.props;
         return (
             <div>
-                <div className={styles.block}>
-                    <label className={styles.label}>
-                        <Checkbox checked={readOnly} onChange={onChangeMode} />
-                        Read only
-                    </label>
+                {authorized && (
                     <div className={styles.buttons}>
                         <Button color="success" onClick={createCard}>
                             Create new card
@@ -32,32 +27,30 @@ class App extends Component {
                             Delete selected
                         </Button>
                     </div>
-                </div>
+                )}
                 <CardList />
             </div>
         );
     }
 }
 
-App.propTypes = {
+Main.propTypes = {
     createCard: PropTypes.func,
     deleteCards: PropTypes.func,
-    onChangeMode: PropTypes.func,
     onLoadCards: PropTypes.func,
-    readOnly: PropTypes.bool,
     cards: PropTypes.arrayOf(PropTypes.object),
+    authorized: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-    readOnly: state.readOnly,
-    cards: state.cards,
+    cards: state.cardReducer.cards,
+    authorized: state.authReducer.authorized,
 });
 
 const mapDispatchToProps = {
     createCard: create,
     deleteCards: remove,
-    onChangeMode: changeMode,
     onLoadCards: loadCards,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

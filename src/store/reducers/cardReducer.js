@@ -5,15 +5,11 @@ import {
     GET_CARDS,
     UPDATE_CARD,
     CHANGE_CARD_TICK,
-    CHANGE_MODE,
-} from './actionTypes';
+} from '../actions/actionTypes';
 
-const initialState = {
-    cards: [],
-    readOnly: false,
-};
+const initialState = { cards: [] };
 
-const reducer = (state = initialState, action) => {
+const cardReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_CARD:
             return {
@@ -61,11 +57,9 @@ const reducer = (state = initialState, action) => {
                         : card
                 ),
             };
-        case CHANGE_MODE:
-            return { ...state, readOnly: !state.readOnly };
         default:
             return state;
     }
 };
 
-export default reducer;
+export default cardReducer;

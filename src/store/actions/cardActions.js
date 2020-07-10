@@ -6,7 +6,6 @@ import {
     GET_CARDS,
     UPDATE_CARD,
     CHANGE_CARD_TICK,
-    CHANGE_MODE,
 } from './actionTypes';
 
 export const ticked = (id, tick, isEdit) => ({
@@ -25,10 +24,6 @@ export const create = () => ({
 
 export const remove = () => ({
     type: REMOVE_CARDS,
-});
-
-export const changeMode = () => ({
-    type: CHANGE_MODE,
 });
 
 export const loadCards = () => (dispatch) =>
