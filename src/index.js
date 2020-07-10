@@ -19,7 +19,7 @@ const logger = () => (next) => (action) => {
     return next(action);
 };
 
-const store = createStore(reducer, applyMiddleware(logger, thunk));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
     <React.StrictMode>
