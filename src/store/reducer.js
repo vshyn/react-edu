@@ -31,17 +31,17 @@ const reducer = (state = initialState, action) => {
         case REMOVE_CARDS:
             return { ...state, cards: state.cards.filter((card) => !card.tick) };
         case GET_CARDS:
-            return { ...state, cards: action.cards };
+            return { ...state, cards: action.payload.cards };
         case UPDATE_CARD:
             return {
                 ...state,
                 cards: state.cards.map((card) =>
-                    card.id === action.id
+                    card.id === action.payload.id
                         ? {
                               ...card,
-                              title: action.title,
-                              info: action.info,
-                              id: action.id,
+                              title: action.payload.title,
+                              info: action.payload.info,
+                              id: action.payload.id,
                           }
                         : card
                 ),
@@ -50,11 +50,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cards: state.cards.map((card) =>
-                    card.id === action.id
+                    card.id === action.payload.id
                         ? {
                               ...card,
-                              tick: !action.isEdit ? action.isEdit : action.tick,
-                              id: action.id,
+                              tick: !action.payload.isEdit
+                                  ? action.payload.isEdit
+                                  : action.payload.tick,
+                              id: action.payload.id,
                           }
                         : card
                 ),

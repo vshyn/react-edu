@@ -11,16 +11,12 @@ import {
 
 export const ticked = (id, tick, isEdit) => ({
     type: CHANGE_CARD_TICK,
-    id,
-    tick,
-    isEdit,
+    payload: { id, tick, isEdit },
 });
 
 export const update = (title, info, id) => ({
     type: UPDATE_CARD,
-    title,
-    info,
-    id,
+    payload: { title, info, id },
 });
 
 export const create = () => ({
@@ -43,11 +39,13 @@ export const loadCards = () => (dispatch) =>
         .then((response) => {
             dispatch({
                 type: GET_CARDS,
-                cards: response.data.slice(0, 15).map((line) => ({
-                    id: uuidv4(),
-                    title: line.Name,
-                    info: line.About,
-                    tick: false,
-                })),
+                payload: {
+                    cards: response.data.slice(0, 15).map((line) => ({
+                        id: uuidv4(),
+                        title: line.Name,
+                        info: line.About,
+                        tick: false,
+                    })),
+                },
             });
         });
