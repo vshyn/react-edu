@@ -118,7 +118,7 @@ Card.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    readOnly: state.readOnly,
+    readOnly: state.readOnlyReducer.readOnly,
 });
 
 export default connect(mapStateToProps)(withLoadingDelay(withRouter(Card)));

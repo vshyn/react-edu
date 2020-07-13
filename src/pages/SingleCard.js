@@ -28,7 +28,7 @@ SingleCard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    cards: state.cards,
+    cards: state.cardReducer.cards,
 });
 
 const mapDispatchToProps = {

@@ -6,3 +6,6 @@ export const UPDATE_CARD = 'UPDATE_CARD';
 export const CHANGE_CARD_TICK = 'CHANGE_CARD_TICK';
 // readOnly
 export const CHANGE_MODE = 'CHANGE_MODE';
+// auth
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';

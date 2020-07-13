@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
     composeValidators,
     required,
@@ -10,9 +11,12 @@ import {
     hasNumber,
     hasLetter,
 } from '../validation/validations';
+import { login } from '../store/actions';
 
 class SignInPage extends React.Component {
-    onSubmit = () => {
+    onSubmit = (event) => {
+        this.props.onLogin(event.username, event.password);
+        console.log(this.props.history);
         this.props.history.push('/');
     };
 
@@ -80,8 +84,14 @@ class SignInPage extends React.Component {
         );
     }
 }
+
 SignInPage.propTypes = {
     history: PropTypes.any,
+    onLogin: PropTypes.func,
 };
 
-export default withRouter(SignInPage);
+const mapDispatchToProps = {
+    onLogin: login,
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(SignInPage));

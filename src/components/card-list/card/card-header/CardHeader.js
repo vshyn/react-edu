@@ -13,6 +13,7 @@ const cardHeader = ({
     onSave,
     onEdit,
     readOnly,
+    authorized,
 }) => (
     <div>
         {isEditMode && !readOnly ? (
@@ -27,7 +28,9 @@ const cardHeader = ({
             <div className={styles.container}>
                 <h2>{title}</h2>
                 <div>
-                    {!readOnly && <MdEdit size={25} onClick={onEdit} />}
+                    {!readOnly && authorized && (
+                        <MdEdit size={25} onClick={onEdit} />
+                    )}
                     <input
                         className={styles.checkbox}
                         type="checkbox"
@@ -48,10 +51,12 @@ cardHeader.propTypes = {
     onUndo: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
+    authorized: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-    readOnly: state.readOnly,
+    readOnly: state.readOnlyReducer.readOnly,
+    authorized: state.authReducer.authorized,
 });
 
 export default connect(mapStateToProps)(cardHeader);
