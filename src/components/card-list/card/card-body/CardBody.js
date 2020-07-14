@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const cardBody = ({ isEditMode, info, changed, readOnly }) => (
+export const CardBody = ({ isEditMode, info, changed, readOnly }) => (
     <div>
         {isEditMode && !readOnly ? (
             <textarea value={info} onChange={changed} />
@@ -12,7 +12,7 @@ const cardBody = ({ isEditMode, info, changed, readOnly }) => (
     </div>
 );
 
-cardBody.propTypes = {
+CardBody.propTypes = {
     info: PropTypes.string.isRequired,
     isEditMode: PropTypes.bool.isRequired,
     changed: PropTypes.func.isRequired,
@@ -23,4 +23,4 @@ const mapStateToProps = (state) => ({
     readOnly: state.readOnlyReducer.readOnly,
 });
 
-export default connect(mapStateToProps)(cardBody);
+export default connect(mapStateToProps)(CardBody);

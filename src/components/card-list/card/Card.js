@@ -7,7 +7,7 @@ import CardHeader from './card-header';
 import CardBody from './card-body';
 import withLoadingDelay from '../../../hoc/WithLoadingDelay';
 
-class Card extends React.Component {
+export class Card extends React.Component {
     constructor(props) {
         super(props);
         const { card, match } = this.props;

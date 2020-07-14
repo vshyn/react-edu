@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styles from './CardHeader.module.css';
 
-const cardHeader = ({
+export const CardHeader = ({
     title,
     isEditMode,
     onChanged,
@@ -42,7 +42,7 @@ const cardHeader = ({
     </div>
 );
 
-cardHeader.propTypes = {
+CardHeader.propTypes = {
     title: PropTypes.string.isRequired,
     isEditMode: PropTypes.bool.isRequired,
     onTicked: PropTypes.func.isRequired,
@@ -59,4 +59,4 @@ const mapStateToProps = (state) => ({
     authorized: state.authReducer.authorized,
 });
 
-export default connect(mapStateToProps)(cardHeader);
+export default connect(mapStateToProps)(CardHeader);
