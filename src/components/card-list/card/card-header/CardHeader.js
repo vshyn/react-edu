@@ -54,7 +54,7 @@ CardHeader.propTypes = {
     authorized: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     readOnly: state.readOnlyReducer.readOnly,
     authorized: state.authReducer.authorized,
 });

@@ -19,7 +19,7 @@ CardBody.propTypes = {
     readOnly: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     readOnly: state.readOnlyReducer.readOnly,
 });
 

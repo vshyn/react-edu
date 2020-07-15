@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { CardHeader } from './CardHeader';
+import { CardHeader, mapStateToProps } from './CardHeader';
 
 describe('CardHeader', () => {
     let wrapper;
@@ -41,5 +41,14 @@ describe('CardHeader', () => {
         expect(wrapper.find('textarea').props().value).toEqual('title');
         expect(wrapper.find('MdUndo')).toHaveLength(1);
         expect(wrapper.find('MdSave')).toHaveLength(1);
+    });
+
+    it('should set state', () => {
+        const state = {
+            readOnlyReducer: { readOnly: false },
+            authReducer: { authorized: false },
+        };
+        expect(mapStateToProps(state).readOnly).toEqual(false);
+        expect(mapStateToProps(state).authorized).toEqual(false);
     });
 });

@@ -117,7 +117,7 @@ Card.propTypes = {
     match: PropTypes.any,
 };
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     readOnly: state.readOnlyReducer.readOnly,
 });
 
